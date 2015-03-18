@@ -446,23 +446,11 @@ withAutoCompleteString:(NSString *)string
 		
 		[self.superview bringSubviewToFront:self];
 		
-		UIView *rootView = self.superview.superview;
-		CGPoint parentLocation = [self convertPoint:CGPointMake(self.autoCompleteTableView.frame.origin.x,
-																														self.autoCompleteTableView.frame.origin.y)
-																				 toView:rootView];
-		[self.autoCompleteTableView setFrame:CGRectMake(parentLocation.x, parentLocation.y, self.autoCompleteTableView.frame.size.width, self.autoCompleteTableView.frame.size.height)];
 		
+		UIView *rootView = [self.window.subviews objectAtIndex:0];
 		[rootView insertSubview:self.autoCompleteTableView
 							 belowSubview:self];
-		
-//#if BROKEN
-//		UIView *rootView = [self.window.subviews objectAtIndex:0];
-//		[rootView insertSubview:self.autoCompleteTableView
-//							 belowSubview:self];
-//#else
-//		[self.superview insertSubview:self.autoCompleteTableView
-//										 belowSubview:self];
-//#endif
+
 		
 		[self.autoCompleteTableView setUserInteractionEnabled:YES];
 		if(self.showTextFieldDropShadowWhenAutoCompleteTableIsOpen){
@@ -844,6 +832,11 @@ withAutoCompleteString:(NSString *)string
 	frame.origin.x += textField.autoCompleteTableOriginOffset.width;
 	frame.origin.y += textField.autoCompleteTableOriginOffset.height;
 	frame = CGRectInset(frame, 1, 0);
+	
+	CGPoint parentLocation = [self convertPoint:CGPointMake(frame.origin.x, frame.origin.y)
+																			 toView:self.superview.superview];
+	
+	frame = CGRectMake(parentLocation.x, parentLocation.y, frame.size.width, frame.size.height);
 	
 	return frame;
 }
