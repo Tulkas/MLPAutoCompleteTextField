@@ -445,9 +445,14 @@ withAutoCompleteString:(NSString *)string
         
         [self.superview bringSubviewToFront:self];
 
-        UIView *rootView = [self.window.subviews objectAtIndex:0];
-        [rootView insertSubview:self.autoCompleteTableView
-                   belowSubview:self];
+#if BROKEN
+			UIView *rootView = [self.window.subviews objectAtIndex:0];
+			[rootView insertSubview:self.autoCompleteTableView
+								 belowSubview:self];
+#else
+			[self.superview.superview insertSubview:self.autoCompleteTableView
+											 belowSubview:self];
+#endif
 
         [self.autoCompleteTableView setUserInteractionEnabled:YES];
         if(self.showTextFieldDropShadowWhenAutoCompleteTableIsOpen){
