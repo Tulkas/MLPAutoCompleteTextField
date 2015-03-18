@@ -450,8 +450,9 @@ withAutoCompleteString:(NSString *)string
 			[rootView insertSubview:self.autoCompleteTableView
 								 belowSubview:self];
 #else
-			[self.superview.superview insertSubview:self.autoCompleteTableView
+			[self.superview insertSubview:self.autoCompleteTableView
 											 belowSubview:self];
+			[self.superview bringSubviewToFront:self];
 #endif
 
         [self.autoCompleteTableView setUserInteractionEnabled:YES];
