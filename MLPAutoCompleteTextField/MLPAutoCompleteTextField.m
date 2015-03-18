@@ -446,7 +446,7 @@ withAutoCompleteString:(NSString *)string
 		
 		[self.superview bringSubviewToFront:self];
 		
-		UIView *rootView = [self.window.subviews objectAtIndex:0];
+		UIView *rootView = self.superview.superview;
 		CGPoint parentLocation = [self convertPoint:CGPointMake(self.autoCompleteTableView.frame.origin.x,
 																														self.autoCompleteTableView.frame.origin.y)
 																				 toView:rootView];
